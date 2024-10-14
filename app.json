@@ -1,0 +1,43 @@
+{
+  "expo": {
+    "name": "lightBoard",
+    "slug": "lightBoard",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/LB.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/LIGHTBOARD.png",
+      "backgroundColor": "#1E90FF"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.sodiqabdulazeez.lightBoard"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "0b787388-2ce2-4969-b68e-2a2934d4b3da"
+      }
+    },
+     "plugins": [
+      [
+        "expo-updates",
+        {
+          "username": "sodiqabdulazeez"
+        }
+      ]
+    ]
+  }
+}
