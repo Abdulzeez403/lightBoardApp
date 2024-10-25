@@ -4,6 +4,7 @@
     "slug": "lightBoard",
     "version": "1.0.0",
     "orientation": "portrait",
+    "scheme": "your-app-scheme",
     "icon": "./assets/LB.png",
     "userInterfaceStyle": "light",
     "splash": {
