@@ -15,12 +15,10 @@ import MyCourseNavigatorTab from "./MyCourseNavigator";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { CourseItem } from "./components/courseItem";
 import { useNavigation } from "@react-navigation/native";
-import { router } from "expo-router";
+import { Link, router } from "expo-router";
 
 const CourseScreen = () => {
   const { fetchEnrolledCourses, enrolledCourses, loading } = useCourseContext();
-
-  const navigation = useNavigation();
 
   useEffect(() => {
     fetchEnrolledCoursess();
@@ -50,15 +48,9 @@ const CourseScreen = () => {
               data={enrolledCourses}
               keyExtractor={(item) => item._id}
               renderItem={({ item }) => (
-                <TouchableOpacity
-                  onPress={() =>
-                    router.navigate("ContentLists", {
-                      item: item?.courseId?._id,
-                    })
-                  }
-                >
+                <Link href={`/(tabs)/courses/${item?.courseId?._id}`}>
                   <CourseItem course={item} />
-                </TouchableOpacity>
+                </Link>
               )}
             />
           }

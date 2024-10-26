@@ -1,8 +1,8 @@
 import React from "react";
 import HomeScreen from "../../../src/modules/home/screen";
 
-const Index = ({ navigate }: any) => {
-  return <HomeScreen navigation={navigate} />;
+const index = () => {
+  return <HomeScreen />;
 };
 
-export default Index;
+export default index;

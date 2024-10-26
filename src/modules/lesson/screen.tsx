@@ -20,10 +20,9 @@ import { ApIcon } from "../../components/icon";
 import { ApLoader } from "../../components/loader";
 import { ModalComponent } from "../../components/modal";
 
-const ContentScreen = ({ route }) => {
+const ContentScreen = ({ content }) => {
   const { width, height } = Dimensions.get("window");
   const [currentIndex, setCurrentIndex] = useState(0);
-  const { item } = route.params;
   const { getLessons, lessons, loading } = useLessonContext();
   const flatListRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -56,7 +55,9 @@ const ContentScreen = ({ route }) => {
   };
 
   useEffect(() => {
-    getLessons(item?._id);
+    getLessons(content);
+    console.log(content);
+
     const timeout = setTimeout(() => {
       setIsVisible(true);
     }, 60000); // 10 minutes in milliseconds
@@ -175,14 +176,14 @@ const ContentScreen = ({ route }) => {
           </View>
         )}
 
-        <ModalComponent
+        {/* <ModalComponent
           modalVisible={isVisible}
           hideModal={hideModal}
           present="formSheet"
         >
           <View className={{ height: 200 }}></View>
           <Text>Mark Your Attendance!</Text>
-        </ModalComponent>
+        </ModalComponent> */}
 
         <ModalComponent modalVisible={modal} hideModal={hideModal}>
           <SafeAreaView

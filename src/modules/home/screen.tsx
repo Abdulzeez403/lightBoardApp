@@ -20,6 +20,7 @@ import { useCourseContext } from "../course/context";
 import { useAuthContext } from "../../context";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ApLoader } from "../../components/loader";
+import { router } from "expo-router";
 
 interface IButtonCategory {
   name: string;
@@ -27,7 +28,7 @@ interface IButtonCategory {
   iconType: any;
 }
 
-const HomeScreen = ({ navigation }) => {
+const HomeScreen = () => {
   const buttons: IButtonCategory[] = [
     {
       name: "Courses",
@@ -212,7 +213,7 @@ const HomeScreen = ({ navigation }) => {
                       alignItems: "center",
                     }}
                     onPress={() => {
-                      navigation.navigate(theme.screens.BookMarkScreen);
+                      router.navigate(theme.screens.BookMarkScreen);
                     }}
                   >
                     <View
@@ -278,7 +279,7 @@ const HomeScreen = ({ navigation }) => {
                     <TouchableOpacity
                       onPress={() => {
                         fetchEnrolledStudent(course?._id);
-                        navigation.navigate("CourseDetail", { course });
+                        router.navigate("CourseDetail", { params: { course } });
                       }}
                     >
                       <HomeCourseItem course={course} />
