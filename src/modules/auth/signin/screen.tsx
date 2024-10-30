@@ -1,25 +1,34 @@
 import {
-  StyleSheet,
   Text,
   View,
   TouchableOpacity,
   useWindowDimensions,
+  Image,
 } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import ApTextInput from "../../../components/input";
 import { Formik, FormikProps } from "formik";
+import * as Yup from "yup"; // Import Yup for validation
+import ApTextInput from "../../../components/input";
 import { ApButton } from "../../../components";
 import ApSubtitle from "../../../components/topography/subtitle";
 import { useAuthContext } from "../../../context";
-import { theme } from "../../../constants/theme";
 import { router } from "expo-router";
+import ApFullScreenLoader from "../../../components/loader/FullScreenLoader";
 
 const SignInScreen = ({ navigation }) => {
-  const { loading, signIn, user } = useAuthContext();
+  const { loading, signIn } = useAuthContext();
   const { width } = useWindowDimensions();
 
-  const handleSubmit = async (payload: any) => {
+  // Define the validation schema using Yup
+  const validationSchema = Yup.object().shape({
+    email: Yup.string()
+      .email("Invalid email address")
+      .required("Email is required"),
+    password: Yup.string().required("Password is required"),
+  });
+
+  const handleSubmit = async (payload) => {
     try {
       await signIn(payload);
       router.navigate("home");
@@ -29,17 +38,22 @@ const SignInScreen = ({ navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.contentContainer}>
-        {/* <View style={{ width: 50, height: 50 }}>
-                    <Image source={require("../../../../assets/LB.png")} />
-                </View> */}
+    <SafeAreaView className="flex-1 justify-center">
+      <ApFullScreenLoader loading={loading} />
+
+      <View className="w-full items-center">
+        <View className="w-12 h-12">
+          <Image
+            source={require("../../../../assets/LB.png")}
+            className="w-full h-full object-contain rounded-full"
+          />
+        </View>
         <Text className="text-center text-lg font-bold">Sign In</Text>
         <ApSubtitle>Welcome to LightBoard</ApSubtitle>
         <Formik
-          style={styles.formContainer}
-          onSubmit={handleSubmit}
+          validationSchema={validationSchema} // Attach the validation schema
           initialValues={{ email: "", password: "" }}
+          onSubmit={handleSubmit}
         >
           {(props: FormikProps<any>) => (
             <>
@@ -55,26 +69,21 @@ const SignInScreen = ({ navigation }) => {
                 placeholder="Password"
                 name="password"
                 formikProps={props}
+                type="password" // Specify the type for password handling
               />
 
-              <View
-                className="my-2"
-                style={{ width: width, paddingHorizontal: 20 }}
-              >
+              <View className="my-2 w-full px-5">
                 <ApButton
-                  label={loading ? "Loading..." : "Sign In"}
+                  label={"Sign In"}
                   type="primary"
+                  loading={loading}
                   round="lg"
                   onPress={props.handleSubmit}
                 />
               </View>
               <View>
-                <TouchableOpacity
-                  onPress={() =>
-                    navigation.navigate(theme.screens.SignUpScreen)
-                  }
-                >
-                  <Text style={styles.textLink}>
+                <TouchableOpacity onPress={() => router.navigate("/signup")}>
+                  <Text className="text-center text-red-400">
                     Don't have an account yet?
                   </Text>
                 </TouchableOpacity>
@@ -86,26 +95,5 @@ const SignInScreen = ({ navigation }) => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    // paddingHorizontal: 16,
-  },
-  contentContainer: {
-    width: "100%",
-  },
-  formContainer: {
-    width: "100%",
-  },
-  buttonContainer: {
-    marginTop: 10,
-  },
-  textLink: {
-    textAlign: "center",
-    color: "red",
-  },
-});
 
 export default SignInScreen;

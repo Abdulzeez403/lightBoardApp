@@ -64,10 +64,15 @@ export const AuthProvider: React.FC<IProps> = ({ children, navigation }) => {
   };
 
   const signUp = async (userData: any) => {
+    setLoading(true);
+
     try {
       const response = await axios.post(`${port}/students`, userData);
       await AsyncStorage.setItem("user", JSON.stringify(response.data));
+      setLoading(false);
     } catch (error) {
+      setLoading(false);
+
       console.error("Error signing up:", error);
       throw error;
     }

@@ -5,19 +5,20 @@ import RoundedImage from "../../components/image/avatar";
 import { ApIcon } from "../../components/icon";
 import { useAuthContext } from "../../context";
 import { ApButton } from "../../components";
+import { router } from "expo-router";
 
 interface IProps {
   icon: React.ReactNode;
   title: string;
 }
 
-const ProfileScreen = ({ navigation }) => {
+const ProfileScreen = () => {
   const { signOut, user } = useAuthContext();
 
   const handleSignOut = async () => {
     try {
       await signOut();
-      // navigation.navigate(theme.screens.SigninScreen);
+      router.navigate("/signin");
     } catch (err) {
       console.log(err);
     }

@@ -13,6 +13,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useCourseContext } from "../course/context";
 import { ApIcon } from "../../components/icon";
 import { ApLoader } from "../../components/loader";
+import { router } from "expo-router";
 
 type Props = {};
 
@@ -107,7 +108,10 @@ const BookMarkscreen = (props: Props) => {
                 <TouchableOpacity
                   key={index}
                   onPress={() =>
-                    navigation.navigate("CourseDetail", { course })
+                    router.push({
+                      pathname: `/courses/courseDetail/${course?._id}`,
+                      params: { course: JSON.stringify(course) },
+                    })
                   }
                 >
                   <CourseItem course={course} />

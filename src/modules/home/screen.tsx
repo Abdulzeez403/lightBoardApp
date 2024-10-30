@@ -279,7 +279,10 @@ const HomeScreen = () => {
                     <TouchableOpacity
                       onPress={() => {
                         fetchEnrolledStudent(course?._id);
-                        router.navigate("CourseDetail", { params: { course } });
+                        router.push({
+                          pathname: `/courses/courseDetail/${course?._id}`,
+                          params: { course: JSON.stringify(course) },
+                        });
                       }}
                     >
                       <HomeCourseItem course={course} />

@@ -18,14 +18,14 @@ interface IProps {
   icon: any;
   title: string;
 }
-const CourseDetailScreen = ({ route }) => {
+const CourseDetailScreen = ({ course }: any) => {
   const Components1 = ({ icon, title }: IProps) => (
     <View style={{ flexDirection: "row", gap: 4 }} className=" ">
       <Text>{icon}</Text>
       <Text style={{ fontSize: 15 }}>{title}</Text>
     </View>
   );
-  const { course } = route.params;
+
   const { createEnrolledStudent, enrollStudent, getEnrolledStudent } =
     useCourseContext();
   const handleEnrollment = async () => {
